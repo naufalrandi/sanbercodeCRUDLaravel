@@ -14,6 +14,12 @@
                   {{ $pertanyaan->isi }}
                   <hr>
                   <a class="btn btn-info btn-sm" href="{{ route('pertanyaan.show',$pertanyaan->id) }}">Add Comments</a>
+                  <a class="btn btn-info btn-sm" href="{{ route('pertanyaan.edit',$pertanyaan->id) }}">Edit</a>
+                  <form action="{{ route('pertanyaan.destroy', $pertanyaan->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                  </form>
                   <hr/>
 
                 @endforeach

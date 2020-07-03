@@ -67,7 +67,8 @@ class PertayaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pertanyaan = Pertanyaan::find($id);
+        return view('pertanyaan.edit', compact('pertanyaan'));
     }
 
     /**
@@ -79,7 +80,16 @@ class PertayaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'judul' => 'required',
+            'isi' => 'required'
+        ]);
+        $input = $request->all();
+        $pertanyaan = Pertanyaan::find($id);
+        $pertanyaan->update($input);
+
+        return redirect()->route('pertanyaan.index')
+            ->with('success', 'Pertanyaan dibuat');
     }
 
     /**
@@ -90,6 +100,8 @@ class PertayaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pertanyaan::find($id)->delete();
+        return redirect()->route('pertanyaan.index')
+            ->with('success', 'Pertanyaan Deleted');
     }
 }
